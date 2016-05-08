@@ -2,6 +2,10 @@
 #include <SD.h>
 #include <VirtualWire.h>
 
+const int LED_PIN = 13;
+const int YELLOW_PIN = 2;
+const int RED_PIN = 3;
+
 File recordFile;
 int incomingByte = 0;
 int doorState;
@@ -27,7 +31,7 @@ void decodeMsg(){
         
         //Set LED to HIGH 
         //Indicates message received
-        digitalWrite(13, HIGH); 
+        digitalWrite(LED_PIN, HIGH); 
         // Message with a good checksum received, dump it.
         
         for (i = 0; i < buflen; i++)
@@ -64,7 +68,7 @@ void decodeMsg(){
         
         //Set LED to LOW
         //indicating end of message transmission
-        digitalWrite(13, LOW);
+        digitalWrite(LED_PIN, LOW);
     }
 }
 
@@ -86,9 +90,9 @@ void setup() {
 
   Serial.begin(9600); // Debugging only
     //Serial.println("setup");
-    pinMode(13, OUTPUT);
-    pinMode(2, OUTPUT);
-    pinMode(1, OUTPUT);
+    pinMode(LED_PIN, OUTPUT);
+    pinMode(YELLOW_PIN, OUTPUT);
+    pinMode(RED_PIN, OUTPUT);
     // Initialise the IO and ISR
     vw_set_rx_pin(8);  //Changes rx pin on board
     //Default rx pin is I/O pin 11
@@ -108,9 +112,9 @@ void writeFileYellow(){
       Serial.println("error opening file for door open");
       }
 
-      digitalWrite(2, HIGH);
+      digitalWrite(YELLOW_PIN, HIGH);
       delay(100);
-      digitalWrite(2, LOW);
+      digitalWrite(YELLOW_PIN, LOW);
 }
 
 void writeFileRed(){
@@ -124,17 +128,17 @@ void writeFileRed(){
       Serial.println("error opening file for door open");
       }
 
-      digitalWrite(1, HIGH);
+      digitalWrite(RED_PIN, HIGH);
       delay(100);
-      digitalWrite(1, LOW);
+      digitalWrite(RED_PIN, LOW);
 }
 
 void badTrans(){
-      digitalWrite(2, HIGH);
-      digitalWrite(1, HIGH);
+      digitalWrite(YELLOW_PIN, HIGH);
+      digitalWrite(RED_PIN, HIGH);
       delay(100);
-      digitalWrite(2, LOW);
-      digitalWrite(1, LOW);
+      digitalWrite(YELLOW_PIN, LOW);
+      digitalWrite(RED_PIN, LOW);
 }
 
 void loop() {
