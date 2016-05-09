@@ -101,6 +101,7 @@ void setup() {
     vw_rx_start();       // Start the receiver PLL running
 }
 
+/*Writes to a file if code door was just open*/
 void writeFileYellow(){
       if (recordFile) {
       recordFile.println(doorCount + " just open");
@@ -117,6 +118,7 @@ void writeFileYellow(){
       digitalWrite(YELLOW_PIN, LOW);
 }
 
+/*Writes to file for state where door has been open*/
 void writeFileRed(){
       if (recordFile) {
       recordFile.println(doorCount + " danger level");
@@ -133,6 +135,7 @@ void writeFileRed(){
       digitalWrite(RED_PIN, LOW);
 }
 
+/*Controls LED states for bad or nonexistent transmission*/
 void badTrans(){
       digitalWrite(YELLOW_PIN, HIGH);
       digitalWrite(RED_PIN, HIGH);

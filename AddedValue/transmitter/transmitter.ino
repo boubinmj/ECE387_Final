@@ -31,7 +31,7 @@ void loop()
   msg[3] = '/';
   msg[4] = 'x';
 
-  state = digitalRead(11);
+  state = digitalRead(TX_PIN);
 
   Serial.println(state);
 
